@@ -1,0 +1,30 @@
+h2 {
+  font-size:13px;
+  color:#666;
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+body {
+  width:220px;
+  padding:5px;
+}
+
+.loading {
+  float: left;
+  margin-right: 5px;
+  margin-top: 1px;
+}
+
+.owner {
+  display:none;
+  font-size: 22px;
+  padding-top: 10px;
+}
+
+.error {
+  font-size:13px;
+  padding-top:0px;
+  font-weight:bold;
+  color:#666;
+}
