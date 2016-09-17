@@ -195,7 +195,7 @@ $( document ).ready(function() {
 
       //$( "body" ).append( "<p>"+get_hostname(url)+"</p>" );
 
-      $.get( "http://104.236.253.171:9119/query/?domain="+domain, function( data) {
+      $.get( "http://whois.npff.co:9119/query/?domain="+domain, function( data) {
 
         //console.log(data);
         console.log(data);
