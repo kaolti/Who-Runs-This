@@ -267,13 +267,35 @@ $(document).ready(function() {
 
             if (!data.registrantOrganization) {
 
-                // Handle Error
-                $("div.owner").html("Something seems to be wrong ...");
-                $("div.owner").addClass("error");
-                $("h2").hide();
-                console.log("Data is empty");
-                $("div.owner").show();
-                $(".loading").hide();
+
+                //Show registrant name if organization name not present
+                if (data.registrantName) {
+                  console.log("Registrant name present: "+data.registrantName);
+                  $("div.owner").html(data.registrantName);
+                  $("div.owner").show();
+                  $(".loading").hide();
+                  $("h2").html("This site is run by:");
+                  $("div#upvotes-info").show();
+
+                } else if (data.adminName) {
+                  console.log("Admin name present");
+                  $("div.owner").html(data.adminName);
+                  $("div.owner").show();
+                  $(".loading").hide();
+                  $("h2").html("This site is run by:");
+                  $("div#upvotes-info").show();
+                } else {
+
+
+                  // Handle Error
+                  $("div.owner").html("Something seems to be wrong ...");
+                  $("div.owner").addClass("error");
+                  $("h2").hide();
+                  console.log("Data is empty");
+                  $("div.owner").show();
+                  $(".loading").hide();
+
+                }
 
 
             } else {
