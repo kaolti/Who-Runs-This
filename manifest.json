@@ -3,7 +3,7 @@
 
   "name": "Who runs this",
   "description": "This extension shows who really runs a site",
-  "version": "1.1",
+  "version": "1.2",
 
   "browser_action": {
     "default_popup": "popup.html"
@@ -14,9 +14,10 @@
   },
   "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
   "permissions": [
+    "storage",
     "activeTab",
     "https://ajax.googleapis.com/",
-    "http://104.236.253.171/*",
+    "https://whois.npff.co/*",
     "http://api.corpwatch.org/*"
   ]
 }

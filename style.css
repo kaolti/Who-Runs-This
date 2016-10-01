@@ -28,3 +28,66 @@ body {
   font-weight:bold;
   color:#666;
 }
+
+
+.info {
+  display:none;
+  border: 2px solid #eee;
+  border-radius: 4px;
+  float: left;
+  margin-bottom: 10px;
+  margin-top:10px;
+}
+
+.upvotes {
+  font-size: 13px;
+  font-weight: bold;
+  float: left;
+  margin-right: 10px;
+  line-height: 24px;
+}
+
+.info .text {
+  float: left;
+  line-height: 24px;
+  margin-left: 5px;
+  font-weight: bold;
+  padding-top: 1px;
+  color:#06CD55;
+}
+
+.info i {
+  float: left;
+  padding-top: 9px;
+  color:#06CD55;
+}
+
+.info a{
+  float: left;
+  margin-right: 9px;
+  padding-left: 7px;
+  padding-right: 7px;
+  border-right: 2px solid #eee;
+}
+
+.info a:hover {
+  background-color:#eee;
+}
+
+.voted {
+  background-color:#06CD55;
+  border:2px solid #03B148 !important;
+}
+
+.voted a {
+  border-right:2px solid #03B148 !important;
+}
+
+.voted a:hover {
+  cursor:default !important;
+  background-color:#06CD55;
+}
+
+.voted * {
+  color:#fff !important;
+}
