@@ -12,12 +12,13 @@
            "48": "icon48.png",
           "128": "icon128.png"
   },
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://en.wikipedia.org https://whois.npff.co:*; object-src 'self';",
   "permissions": [
     "storage",
     "activeTab",
     "https://ajax.googleapis.com/",
     "https://whois.npff.co/*",
-    "http://api.corpwatch.org/*"
+    "http://api.corpwatch.org/*",
+    "https://en.wikipedia.org/*"
   ]
 }

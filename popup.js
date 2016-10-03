@@ -170,6 +170,97 @@ function getParent(id, callback) {
 
 }
 
+function getWikiInfo(keyword, callback) {
+
+  // retrieve wikipedia summary about keyword
+
+  // remove , Inc., CORP, Foundation, ltd from the keyword as they are irrelevant for search
+
+  var keywordNew = keyword.toLowerCase().replace(", inc.", "").replace(" corp","").replace(" foundation","").replace(" ltd","");
+  console.log(encodeURI(keywordNew));
+
+  // Works, but not with disambiguos pages
+
+  // $.ajax({
+  //      type: "GET",
+  //      url: "https://en.wikipedia.org/w/api.php?action=opensearch&search="+encodeURI(keywordNew)+"&prop=links&redirects=resolve&suggest=true&limit=1&namespace=0&format=json",
+  //      contentType: "application/json; charset=utf-8",
+  //      async: false,
+  //      dataType: "jsonp",
+  //      success: function (data, textStatus, jqXHR) {
+  //         console.log(data);
+  //          callback(data[2]);
+  //      },
+  //      error: function (errorMessage) {
+  //        callback(errorMessage);
+  //      }
+  //  });
+
+
+
+
+   $.ajax({
+        type: "GET",
+        //url: "https://en.wikipedia.org/w/api.php?action=query&prop=categories&generator=search&format=json&gsrsearch="+encodeURI(keywordNew)+"&gsrwhat=text&gsrlimit=2&prop=categories&cllimit=max",
+
+        url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search="+encodeURI(keywordNew)+"&namespace=0",
+
+        //get article
+        //https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow
+
+        //url: "https://en.wikipedia.org/w/api.php?action=opensearch&search="+encodeURI(keywordNew)+"&prop=links&redirects=resolve&suggest=true&limit=1&namespace=0&format=json",
+
+        dataType: "json",
+        success: function (data) {
+
+          for (i=0; i<data[1].length; i++){
+            console.log(data[1][i]);
+            if(data[1][i].indexOf("company")!=-1){
+              // if name contains 'company' assume that it's the correct result
+              console.log("");
+              console.log("contains 'company'");
+              callback(data[2][i]);
+            } else {
+
+              // else if no names contain 'company' assume that the first result is correct
+
+              callback(data[2][0]);
+            }
+          }
+
+
+
+           //console.log(data);
+
+           //console.log("Length: "+Object.keys(data.query.pages).length);
+           //
+          //  for (var key in data.query.pages){
+          //    console.log(data.query.pages[key].title);
+          //    if(data.query.pages[key].title.indexOf("company")){
+          //      console.log(data.query.pages[key].title);
+          //      callback(data[2]);
+          //    }
+           //
+          //  }
+
+            // for (i=0; i<=Object.keys(data.query.pages).length; i++){
+            //   console.log(data.query.pages[i].title)
+            //   console.log(data.query.pages[i].title.indexOf("company"));
+            //   if(data.query.pages[i].title.indexOf("company")){
+            //     console.log(data.query.pages[i].title);
+            //   }
+            // }
+
+
+        },
+        error: function (errorMessage) {
+          callback(errorMessage);
+        }
+    });
+
+
+}
+
 
 function upvote(domain, callback) {
 
@@ -287,6 +378,8 @@ $(document).ready(function() {
                 } else {
 
 
+
+
                   // Handle Error
                   $("div.owner").html("Something seems to be wrong ...");
                   $("div.owner").addClass("error");
@@ -299,6 +392,8 @@ $(document).ready(function() {
 
 
             } else {
+
+
 
                 //$( ".result" ).html( data.registrantOrganization );
 
@@ -315,8 +410,16 @@ $(document).ready(function() {
 
 
                     if (id == "error") {
+
+                      getWikiInfo(data.registrantOrganization, function(data){
+                        console.log("Data returned: "+data);
+                        console.log(data);
+                        $("div.description").html(data);
+                      });
+
                         $("div.owner").html(organization);
                         $("div.owner").show();
+                        $("div.description").show();
                         $(".loading").hide();
                         $("h2").html("This site is run by:");
                         $("div#upvotes-info").show();
@@ -328,18 +431,36 @@ $(document).ready(function() {
                         getParent(id, function(parent) {
 
                             if (parent == "error") {
+
+                              getWikiInfo(data.registrantOrganization, function(data){
+                                console.log("Data returned: "+data);
+                                console.log(data);
+                                $("div.description").html(data);
+                              });
+
+
                                 console.log("No parent found");
                                 $("div#upvotes-info").show();
                                 $("div.owner").html(organization);
                                 $("div.owner").show();
+                                $("div.description").show();
                                 $(".loading").hide();
                                 $("h2").html("This site is run by:");
 
                             } else {
+
+
+                              getWikiInfo(parent, function(data){
+                                console.log("Data returned: "+data);
+                                console.log(data);
+                                $("div.description").html(data);
+                              });
+
                                 $("div#upvotes-info").show();
                                 console.log("Parent found: " + parent);
                                 $("div.owner").html(parent);
                                 $("div.owner").show();
+                                $("div.description").show();
                                 //<img src="https://logo.clearbit.com/baremetrics.com">
                                 $(".loading").hide();
                                 $("h2").html("This site is run by:");

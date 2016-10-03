@@ -6,7 +6,7 @@ h2 {
 }
 
 body {
-  width:220px;
+  min-width:220px;
   padding:5px;
 }
 
@@ -20,6 +20,14 @@ body {
   display:none;
   font-size: 22px;
   padding-top: 10px;
+}
+
+.description {
+  display:none;
+  font-size: 13px;
+  width: 350px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .error {
